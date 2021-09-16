@@ -1,0 +1,91 @@
+import json
+import boto3
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('Info_Table')
+
+def lambda_handler(event, context):
+    table.put_item(
+        Item={
+            'ID':'1879',
+            'DOB':'21/08/98',
+            'First Name':'JOHN',
+            'Last Name': 'Jones',
+            'Sig Health': 'High Blood Pressure'
+        }
+    )
+    response = {
+        'message': 'Item Added'
+    }
+    return {
+        'statusCode':200,
+        'body': response
+    }
+    
+# import json
+# import boto3
+
+# dynamodb = boto3.resource('dynamodb')
+# table = dynamodb.Table('applesNapples')
+
+# def lambda_handler(event, context):
+#     response=table.query(IndexName='ID-index', 
+#             KeyConditionExpression="ID = :ID and #ts = :ts",
+#             ExpressionAttributeNames={
+#                 '#ID': 'ID'
+#             },
+#             ExpressionAttributeValues={
+#                 ':ID': '1876'
+#                 ':ts': '2016'
+#             })['Items']
+#     #response = {
+#         #'message': 'Item Added'
+#   # }
+#     return {
+#         'statusCode':200,
+#         'body': response
+#     }
+
+
+
+# dynamodb = boto3.resource('dynamodb')
+# table = dynamodb.Table('AcademicRecords')
+
+# def lambda_handler(event, context):
+#     response=table.query(IndexName='year-index', 
+#             KeyConditionExpression="student_id = :student_id and #year = :year",
+#             ExpressionAttributeNames={
+#                 '#year': 'year'
+#             },
+#             ExpressionAttributeValues={
+#                 ':student_id': 'nikhil',
+#                 ':year': '2016'
+#             })['Items']
+#     #response = {
+#         #'message': 'Item Added'
+#   # }
+#     return {
+#         'statusCode':200,
+#         'body': response
+#     }
+
+# dynamodb = boto3.resource('dynamodb')
+# table = dynamodb.Table('AcademicRecords')
+
+# def lambda_handler(event, context):
+#     response=table.query(IndexName='course-year-index', 
+#             KeyConditionExpression="course = :course and #year = :year",
+#             ExpressionAttributeNames={
+#                 '#year': 'year'
+#             },
+#             ExpressionAttributeValues={
+#                 ':course': 'English',
+#                 ':year': '2016'
+#             })['Items']
+#     #response = {
+#         #'message': 'Item Added'
+#   # }
+#     return {
+#         'statusCode':200,
+#         'body': response
+#     }
