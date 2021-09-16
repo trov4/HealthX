@@ -1,0 +1,13 @@
+import json
+import boto3
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('apples_oranges')
+
+
+def lambda_handler(event, context):
+    response=table.scan(ProjectionExpression ='#HR',
+    ExpressionAttributeNames =  {'#HR': 'HRvalue'}) #ScanIndexForward=False,
+    #Limit=1) 
+    return response['Items'][-1]
+///will update later
