@@ -1,0 +1,45 @@
+
+import max30102
+import hrcalc
+import time
+#from scipy import stats
+
+m = max30102.MAX30102()
+
+dataHR=[]
+time.sleep(5)   # Wait 5 seconds to place finger on the sensor.
+sum = 0
+sum1 = 0
+#count = 0
+#count1 = 0
+for i in range(5):
+
+    red, ir = m.read_sequential()
+
+    dataHR[i*100:(i+1)*100] = red    # For raw data capturing. Not required!
+    hr, hr_valid, spo2, spo2_valid = hrcalc.calc_hr_and_spo2(ir[:100], red[:100])  # Calculating heart rate and SpO2 values from raw data.
+#    def tmeanHR(hr, alpha):
+#	a = int(alpha*len(hr))
+#	if a==0:
+#		return sum(hr)/float(len(hr))
+	s = sorted(hr)
+        trimmed_list = s[1:-1]
+        trimmed_avg = sum(trimmed_list)/len(trimmed_list)
+	#return float(trimmed_avg)
+	print 
+#	print "Average Heart Rate: ", trimmed_avg
+		
+ #   if hr > 0:
+	#count = count + hr
+    	#sum = sum + hr
+    	#avg = sum/5
+#	stats.trim_mean(hr,0.1)
+ #   if spo2 > 0:
+	#cou1 = count1 + spo2
+	#sum1 = sum1 + spo2
+	#avg1 = sum1/5
+#	stats.trim_mean(spo2,0.1)
+    print "Heart Rate: ", hr, ", Blood Oxygen: ", spo2
+print(tmeanHR)
+#print "Average Heart Rate: ", trimmed_avg
+#print "Average Blood Oxygen: ", avg1
