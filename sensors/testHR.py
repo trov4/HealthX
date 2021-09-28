@@ -9,6 +9,7 @@ m = max30102.MAX30102()
 
 dataHR=[]
 hr_list = []
+spo2_list = []
 time.sleep(5)   # Wait 5 seconds to place finger on the sensor.
 trimmed_sum = 0
 sum = 0
@@ -21,7 +22,7 @@ count1 = 0
 #init
 
 # len(dataHR)
-while len(hr_list) < 5:
+while len(hr_list) < 10:
 
     red, ir = m.read_sequential()
 
@@ -33,9 +34,13 @@ while len(hr_list) < 5:
     hr_list.append(hr)
 
     # spo2 checks, min, max, maximum samples
-
+    if spo2 < 0: 
+	continue
+    spo2_list.append(spo2)
 hr_list.sort()
 hr_list = hr_list[1:-1]
+spo2_list.sort()
+spo2_list = spo2_list[1:-1]
 
 #    def tmeanHR(hr, alpha):
 #    a = arr.array('d', [hr])
@@ -73,12 +78,20 @@ hr_list = hr_list[1:-1]
 	#return float(trimmed_avg)
 #	print "Average Heart Rate: ", trimmed_avg
 print "hr list: ", hr_list
+print "spo2 list: ",spo2_list
 summer = 0
 for i in hr_list:
     summer = summer + i
 l = len(hr_list)
 
 avg = summer/l
+
+summer2 = 0
+for i in spo2_list:
+    summer2 = summer2 + i
+l2 = len(spo2_list)
+
+avg2 = summer2/l2
 #    if dataHR > 0:
 #	count = count + hr
  #   	sum = sum + hr
@@ -92,4 +105,4 @@ avg = summer/l
 print "Heart Rate: ", hr, ", Blood Oxygen: ", spo2
 #print trimmed_avg
 print "Average Heart Rate: ", avg
-#print "Average Blood Oxygen: ", avg1
+print "Average Blood Oxygen: ", avg2
