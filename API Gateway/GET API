@@ -1,0 +1,50 @@
+
+#link - https://6dkki21gjh.execute-api.us-east-1.amazonaws.com/info_getitem?personId=1877
+
+# import json
+# import boto3
+
+# dynamodb = boto3.resource('dynamodb')
+# table = dynamodb.Table('Info_Table')
+
+# def lambda_handler(event, context):
+#     # TODO implement
+#     response=table.get_item(Key={'ID':'1877'})
+#     return {
+#         'statusCode': 200,
+#         'body': response['Item']
+#     }
+
+
+import json
+import boto3
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('Info_Table')
+
+GET_RAW_PATH="/info_getitem"
+def lambda_handler(event, context):
+    print(event)
+    if event['rawPath'] == GET_RAW_PATH:
+    #if True:
+        #GeTPerson Path
+        print("Start Request for Get Person")
+        patientId=event['queryStringParameters']['personId']
+        print("Received request with personId= "+patientId)
+        print("id data = ", type(patientId))
+    # TODO implement
+        response=table.get_item(Key={'ID':patientId})
+        #print(response)
+        #response=table.get_item(Key={'ID':'1877'})
+        blue = response['Item']
+        print (blue)
+        return blue
+
+        #'statusCode': 200
+        
+        #"Hello World"
+    
+
+
+
+
