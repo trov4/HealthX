@@ -195,7 +195,7 @@ def Max_read(seconds):
     print ("Blood Oxygen: ", spo2)
     print ("Average Heart Rate: ", avg)
     print ("Average Blood Oxygen: ", avg2)
-   
+    return hr, spo2
     # requests.post(url, dic)
     
 Max_read(10)

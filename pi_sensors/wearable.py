@@ -2,9 +2,9 @@
 from testHR import Max_read
 from mlxread import temp_read
 # import HTTP api
+import newIottest as iot
 
-
-main():
-	HR_spo2 = testHR.Max_read(5)
+while(True):
+	hr, spo2 = testHR.Max_read(5)
 	temp = mlxread.temp_read(5)
-	HTTP.post(url, HR_spo2, temp)
+	iot.push(hr, spo2, temp)
