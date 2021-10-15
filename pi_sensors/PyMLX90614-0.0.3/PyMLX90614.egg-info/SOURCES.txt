@@ -1,4 +1,5 @@
 README.md
+setup.cfg
 setup.py
 PyMLX90614.egg-info/PKG-INFO
 PyMLX90614.egg-info/SOURCES.txt

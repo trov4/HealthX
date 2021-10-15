@@ -127,6 +127,8 @@ def Max_read(seconds):
 	print (elapsed_time)
         print (start_time)
 	print (current_time)
+	print (hr_list)
+	print (spo2_list)
         if elapsed_time < seconds:
 	    print ("jiwoo")
             red, ir = m.read_sequential()
@@ -151,12 +153,14 @@ def Max_read(seconds):
         else:
             collect = False
             break
+    avg = 0
+    avg2 = 0
     if (len(hr_list) > 0):
         hr_list.sort()
         n = len(hr_list)
         k = int(round(n))
 	print ("im david")
-        hr = hr_list[k+1:n-k]
+        hr = hr_list
         #per=int(input('Enter your percentage: '))
         #hr = hr[(per/2)*len(hr):-(per/2)*len(hr)]
         summer = 0
@@ -170,7 +174,7 @@ def Max_read(seconds):
         n2 = len(spo2_list)
         k2 = int(round(n2))
         #spo2 = spo2[(per/2)*len(spo2):-(per/2)*len(spo2)]
-        spo2 = spo2_list[k2+1:n2-k2]
+        spo2 = spo2_list
         summer2 = 0
         for x in spo2:
             summer2 = summer2 + x
@@ -198,7 +202,7 @@ def Max_read(seconds):
     print ("Blood Oxygen: ", spo2)
     print ("Average Heart Rate: ", avg)
     print ("Average Blood Oxygen: ", avg2)
-    return hr, spo2
+    return avg, avg2
     # requests.post(url, dic)
     
 Max_read(10)
