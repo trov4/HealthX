@@ -13,7 +13,7 @@ def temp_read(seconds):
         current_time = time.time()
         elapsed_time = current_time - start_time
         
-        if elapsed_time > seconds:
+        if elapsed_time < seconds:
             bus = SMBus(1)
             sensor = MLX90614(bus, address=0x5A)
         #print "Ambient Temperature :", sensor.get_ambient()

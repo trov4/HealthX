@@ -1,9 +1,9 @@
-
+\
 import max30102
 import hrcalc
 import time
 #from scipy import stats
-#import numpy as np
+import numpy as np
 
 m = max30102.MAX30102()
 
@@ -124,16 +124,18 @@ def Max_read(seconds):
     
         current_time = time.time()
         elapsed_time = current_time - start_time
-        
-        if elapsed_time > seconds:
-
+	print (elapsed_time)
+        print (start_time)
+	print (current_time)
+        if elapsed_time < seconds:
+	    print ("jiwoo")
             red, ir = m.read_sequential()
         #dataHR[i*100:(i+1)*100] = red    # For raw data capturing. Not required!
             hr, hr_valid, spo2, spo2_valid = hrcalc.calc_hr_and_spo2(ir[:100], red[:100])  # Calculating heart rate and SpO2 values from raw data.
-        # hr checks, also check if over maximum
-        
+        # hr checks, also check if over maxium
             # to replkace
             if hr > 0:
+		print ("Im  kwame ")
                 hr_list.append(hr)
             if spo2 > 0:
                 spo2_list.append(spo2)
@@ -153,15 +155,16 @@ def Max_read(seconds):
         hr_list.sort()
         n = len(hr_list)
         k = int(round(n))
+	print ("im david")
         hr = hr_list[k+1:n-k]
         #per=int(input('Enter your percentage: '))
         #hr = hr[(per/2)*len(hr):-(per/2)*len(hr)]
         summer = 0
         for i in hr:
             summer = summer + i
-        l = len(hr)
+            l = len(hr)
 
-        avg = summer/l
+            avg = summer/l
     if (len(spo2_list) > 0):
         spo2_list.sort()
         n2 = len(spo2_list)
@@ -171,9 +174,9 @@ def Max_read(seconds):
         summer2 = 0
         for x in spo2:
             summer2 = summer2 + x
-        l2 = len(spo2)
+            l2 = len(spo2)
 
-        avg2 = summer2/l2
+            avg2 = summer2/l2
     
     print ("hr list: ", hr)
     print ("spo2 list: ",spo2)
