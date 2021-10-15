@@ -9,13 +9,21 @@ import argparse
 import json
 #import max30102
 import hrcalc
+import time
 
 #m = max30102.MAX30102()
 set_serve = False
+host = "a39nu1xs62gahx-ats.iot.us-east-1.amazonaws.com"
+certPath = "/home/pi/AppFolder/cert/"
+clientId = "pizerow"
+topic = "sensor"
+myAWSIoTMQTTClient = None
+myAWSIoTMQTTClient = None
+myAWSIoTMQTTClient = AWSIoTMQTTClient(clientId)
 def setup():
 	# Init AWSIoTMQTTClient
-	myAWSIoTMQTTClient = None
-	myAWSIoTMQTTClient = AWSIoTMQTTClient(clientId)
+	#myAWSIoTMQTTClient = None
+	#myAWSIoTMQTTClient = AWSIoTMQTTClient(clientId)
 	myAWSIoTMQTTClient.configureEndpoint(host, 8883)
 	myAWSIoTMQTTClient.configureCredentials("{}RootCA1.pem".format(certPath), "{}Rpi-private.pem.key".format(certPath), "{}Rpi-cert.pem.crt".format(certPath))
 
@@ -29,10 +37,10 @@ def setup():
 	set_serve = True
 
 def push(hr, spo2, temp):
-	host = "a39nu1xs62gahx-ats.iot.us-east-1.amazonaws.com"
-	certPath = "/home/pi/AppFolder/cert/"
-	clientId = "pizerow"
-	topic = "sensor"
+	#host = "a39nu1xs62gahx-ats.iot.us-east-1.amazonaws.com"
+	#certPath = "/home/pi/AppFolder/cert/"
+	#clientId = "pizerow"
+	#topic = "sensor"
 	#topic = "$aws/things/myRPi/shadow/update"
 	if (not set_serve):
 		setup()
@@ -46,7 +54,10 @@ def push(hr, spo2, temp):
 	myAWSIoTMQTTClient.publish(topic, messageJson, 1)
 	print('Published topic %s: %s\n' % (topic, messageJson))
 	#print("hello")
-	sleep(3)
+	time.sleep(3)
 	myAWSIoTMQTTClient.disconnect()
+
+
+push( 80, 90, 90)
 
 
