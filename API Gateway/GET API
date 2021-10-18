@@ -43,6 +43,92 @@ def lambda_handler(event, context):
         #'statusCode': 200
         
         #"Hello World"
+        
+        
+
+
+
+
+
+
+
+import json
+import boto3
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('apples_oranges')
+#table = dynamodb.Table('HX_TABLE')
+
+
+GET_RAW_PATH="/sensor_get"
+def lambda_handler(event, context):
+    #print(event)
+    if event['rawPath'] == GET_RAW_PATH:
+    #if True:
+        #GeTPerson Path
+        print("Start Request for Get Person")
+        #patientId=event['queryStringParameters']['personId']
+        #print("Received request with personId= "+patientId)
+        #print("id data = ", type(patientId))
+    # TODO implement
+        response=table.scan(ProjectionExpression ='#HR',
+        ExpressionAttributeNames =  {'#HR': 'HRvalue'}) #ScanIndexForward=False,
+         #Limit=1)
+        # load that int output 
+        
+        # run that again 'o2
+        #load into output
+        
+        #jiwoo_list=[]
+    
+        jiwoo_go={}
+        jiwoo_res={}
+        jiwoo_res['Time']="7PM"
+        result={}
+    
+        #print (jiwoo_res)
+        #res = (response['Items'][-1])
+        #dict3 = {**jiwoo_res,**res}
+       # print(dict3)
+        #print(res)
+        #print(jiwoo_res+(res))
+        
+        
+        
+        
+        list = response['Items']
+        #print(type(list))
+        print(list)
+        jiwoo_res['Time']="7PM"
+
+
+
+
+        for d in list:
+            result.update(d)
+            #print(result)
+            #for k, v in d.items():
+                #d[k]=v
+        #print(d)
+            
+            
+        
+        jiwoo_go["items"]=({**result,**jiwoo_res})
+        return(jiwoo_go)
+        #jiwoo_go["items"]=(result).update(jiwoo_res)
+        #print(jiwoo_go)
+        #print (type(jiwoo_go))
+        #print(type(jiwoo_res))
+        #print (jiwoo_go)
+        #return(jiwoo_go)
+        
+        #return (jiwoo_go)
+         #jiwoo_res['name']="7PM"
+         #d['mynewkey'] = 'mynewvalue'
+        #return response['Items'][-1]
+        #return (jiwoo_go)
+            
+
     
 
 
