@@ -11,6 +11,16 @@ import json
 import hrcalc
 import time
 
+#from testHR import *
+#new_avg, new_avg2 = testHR.Max_read(avg, avg2)
+#avg = testHR.avg
+#avg2 = testHR.avg2
+
+#avg, avg2 = Max_read(10)
+#avg2 = Max_read(10)
+
+#print (avg)
+
 #m = max30102.MAX30102()
 set_serve = False
 host = "a39nu1xs62gahx-ats.iot.us-east-1.amazonaws.com"
@@ -20,6 +30,8 @@ topic = "sensor"
 myAWSIoTMQTTClient = None
 myAWSIoTMQTTClient = None
 myAWSIoTMQTTClient = AWSIoTMQTTClient(clientId)
+
+#print (hr)
 def setup():
 	# Init AWSIoTMQTTClient
 	#myAWSIoTMQTTClient = None
@@ -35,29 +47,37 @@ def setup():
 	myAWSIoTMQTTClient.configureMQTTOperationTimeout(5)  # 5 sec
 
 	set_serve = True
-
-def push(hr, spo2, temp):
+setup()
+myAWSIoTMQTTClient.connect()
+def push(avg, avg2, Tavg):
 	#host = "a39nu1xs62gahx-ats.iot.us-east-1.amazonaws.com"
 	#certPath = "/home/pi/AppFolder/cert/"
 	#clientId = "pizerow"
 	#topic = "sensor"
 	#topic = "$aws/things/myRPi/shadow/update"
-	if (not set_serve):
-		setup()
-	myAWSIoTMQTTClient.connect()
+	#if (not set_serve):
+		#setup()
+	#myAWSIoTMQTTClient.connect()
 
 #	messageJson = json.dumps({"HRvalue": hr, "HTvalid": hr_valid, "SpO2value":spo2,"SpO2valid":spo2_valid})
 	id='1876'
-	temp='98'
+	#temp='98'
 
-	messageJson = json.dumps({"ID": id,"HRvalue": hr,"SpO2value":spo2,"Temperature":temp})
+	messageJson = json.dumps({"ID": id,"HRvalue": avg,"SpO2value":avg2,"Temperature":Tavg})
 	myAWSIoTMQTTClient.publish(topic, messageJson, 1)
 	print('Published topic %s: %s\n' % (topic, messageJson))
 	#print("hello")
 	time.sleep(3)
-	myAWSIoTMQTTClient.disconnect()
+#myAWSIoTMQTTClient.disconnect()
 
-
-push( 80, 90, 90)
-
+for n in range(90):
+	from testHR import *
+	from mlxread import *
+	avg, avg2 = Max_read(10)
+	Tavg = temp_read(10)
+	push(avg, avg2, Tavg)
+#from testHR import *
+#avg, avg2 = Max_read(10)
+#push(avg, avg2, 98)
+myAWSIoTMQTTClient.disconnect()
 

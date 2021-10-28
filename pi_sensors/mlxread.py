@@ -10,7 +10,7 @@ def temp_read(seconds):
     #for n in range(10):
     bus = SMBus(1)
     #bus.close()
-    sensor = MLX90614(bus, address=0x57)
+    sensor = MLX90614(bus, address=0x5a)
     while collect:
     
         current_time = time.time()
@@ -37,13 +37,13 @@ def temp_read(seconds):
     #time.sleep(.5)
     #temp = float(temp)
     #sum = sum + temp
-    avg = (sum/count)+5
+    Tavg = (sum/count)+5
     print "Wrist Temperature :", temp
-    print "Final Temperature: ",avg
+    print "Final Temperature: ",Tavg
         #temp = sensor.get_object_1()
         #temp = (temp*(9/5))+32
     bus.close()
     time.sleep(1)
-    return avg
+    return Tavg
 
 temp_read(10)

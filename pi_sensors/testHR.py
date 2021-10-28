@@ -110,37 +110,39 @@ m = max30102.MAX30102()
 
 ##########################################################################
 import numpy as np
-def Max_read(seconds):
-    #dataHR=[]
-    print("Starting Max_read")
-    hr_list = []
-    spo2_list = []
-    time.sleep(5)   # Wait 5 seconds to place finger on the sensor.
-    start_time = time.time()
-    collect = True
+
+for n in range(2): 
+	def Max_read(seconds):
+    		#dataHR=[]
+    		print("Starting Max_read")
+    		hr_list = []
+    		spo2_list = []
+    		time.sleep(5)   # Wait 5 seconds to place finger on the sensor.
+    		start_time = time.time()
+    		collect = True
     
-    while collect:
-        print("In collect")
+    		while collect:
+        		#print("In collect")
     
-        current_time = time.time()
-        elapsed_time = current_time - start_time
-	print (elapsed_time)
-        print (start_time)
-	print (current_time)
-	print (hr_list)
-	print (spo2_list)
-        if elapsed_time < seconds:
-	    print ("jiwoo")
-            red, ir = m.read_sequential()
+        		current_time = time.time()
+        		elapsed_time = current_time - start_time
+	#print (elapsed_time)
+        #print (start_time)
+	#print (current_time)
+	#print (hr_list)
+	#print (spo2_list)
+        		if elapsed_time < seconds:
+	#    print ("jiwoo")
+            			red, ir = m.read_sequential()
         #dataHR[i*100:(i+1)*100] = red    # For raw data capturing. Not required!
-            hr, hr_valid, spo2, spo2_valid = hrcalc.calc_hr_and_spo2(ir[:100], red[:100])  # Calculating heart rate and SpO2 values from raw data.
+            			hr, hr_valid, spo2, spo2_valid = hrcalc.calc_hr_and_spo2(ir[:100], red[:100])  # Calculating heart rate and SpO2 values from raw data.
         # hr checks, also check if over maxium
             # to replkace
-            if hr > 0:
-		print ("Im  kwame ")
-                hr_list.append(hr)
-            if spo2 > 0:
-                spo2_list.append(spo2)
+            			if hr > 0:
+#		print ("Im  kwame ")
+                			hr_list.append(hr)
+            			if spo2 > 0:
+                			spo2_list.append(spo2)
                 
             #if hr < 0: 
              #   continue
@@ -150,40 +152,40 @@ def Max_read(seconds):
             #if spo2 < 0: 
              #   continue
             #spo2_list.append(spo2)
-        else:
-            collect = False
-            break
-    avg = 0
-    avg2 = 0
-    if (len(hr_list) > 0):
-        hr_list.sort()
-        n = len(hr_list)
-        k = int(round(n))
-	print ("im david")
-        hr = hr_list
+        		else:
+            			collect = False
+            			break
+    		avg = 0
+    		avg2 = 0
+    		if (len(hr_list) > 0):
+        		hr_list.sort()
+        		n = len(hr_list)
+        		k = int(round(n))
+#	print ("im david")
+        		hr = hr_list
         #per=int(input('Enter your percentage: '))
         #hr = hr[(per/2)*len(hr):-(per/2)*len(hr)]
-        summer = 0
-        for i in hr:
-            summer = summer + i
-            l = len(hr)
+        		summer = 0
+        		for i in hr:
+            			summer = summer + i
+            			l = len(hr)
 
-            avg = summer/l
-    if (len(spo2_list) > 0):
-        spo2_list.sort()
-        n2 = len(spo2_list)
-        k2 = int(round(n2))
+            			avg = summer/l
+    		if (len(spo2_list) > 0):
+        		spo2_list.sort()
+        		n2 = len(spo2_list)
+        		k2 = int(round(n2))
         #spo2 = spo2[(per/2)*len(spo2):-(per/2)*len(spo2)]
-        spo2 = spo2_list
-        summer2 = 0
-        for x in spo2:
-            summer2 = summer2 + x
-            l2 = len(spo2)
+        		spo2 = spo2_list
+        		summer2 = 0
+        		for x in spo2:
+            			summer2 = summer2 + x
+            			l2 = len(spo2)
 
-            avg2 = summer2/l2
+            			avg2 = summer2/l2
     
-    print ("hr list: ", hr)
-    print ("spo2 list: ",spo2)
+    #		print("hr list: ", hr)
+    #		print("spo2 list: ",spo2)
     #summer = 0
     #for i in hr:
      #   summer = summer + i
@@ -198,11 +200,11 @@ def Max_read(seconds):
 
     #avg2 = summer2/l2
 
-    print ("Heart Rate: ", hr)
-    print ("Blood Oxygen: ", spo2)
-    print ("Average Heart Rate: ", avg)
-    print ("Average Blood Oxygen: ", avg2)
-    return avg, avg2
+    #		print("Heart Rate: ", hr)
+    #		print("Blood Oxygen: ", spo2)
+    		print('Average Heart Rate: ', avg)
+    		print("Average Blood Oxygen: ", avg2)
+    		return avg, avg2
     # requests.post(url, dic)
     
-Max_read(10)
+#	Max_read(10)
