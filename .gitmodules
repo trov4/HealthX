@@ -1,0 +1,3 @@
+[submodule "Gen2-UHF-RFID-Reader"]
+	path = Gen2-UHF-RFID-Reader
+	url = https://github.com/trov4/Gen2-UHF-RFID-Reader.git
