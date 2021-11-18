@@ -38,6 +38,7 @@ def temp_read(seconds):
     #temp = float(temp)
     #sum = sum + temp
     Tavg = (sum/count)+5
+    Tavg = round(Tavg, 1)
     print "Wrist Temperature :", temp
     print "Final Temperature: ",Tavg
         #temp = sensor.get_object_1()

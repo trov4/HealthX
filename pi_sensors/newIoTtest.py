@@ -10,6 +10,7 @@ import json
 #import max30102
 import hrcalc
 import time
+import requests
 
 #from testHR import *
 #new_avg, new_avg2 = testHR.Max_read(avg, avg2)
@@ -31,25 +32,41 @@ myAWSIoTMQTTClient = None
 myAWSIoTMQTTClient = None
 myAWSIoTMQTTClient = AWSIoTMQTTClient(clientId)
 
+wearable_ID ='1000'
+response = requests.get("https://6dkki21gjh.execute-api.us-east-1.amazonaws.com/info_get_func"+"?"+wearable_ID)
+dataCheck = str(response.json())
+start_time = time.time()
+seconds = 20
+check = True
+#print ()
+#print (json)
+while check:
+	#time.sleep(10)
+	current_time = time.time()
+        elapsed_time = current_time - start_time
+        
+        if elapsed_time < seconds:
+		if dataCheck == wearable_ID:
+	#print ("Hello World")
 #print (hr)
-def setup():
-	# Init AWSIoTMQTTClient
-	#myAWSIoTMQTTClient = None
-	#myAWSIoTMQTTClient = AWSIoTMQTTClient(clientId)
-	myAWSIoTMQTTClient.configureEndpoint(host, 8883)
-	myAWSIoTMQTTClient.configureCredentials("{}RootCA1.pem".format(certPath), "{}Rpi-private.pem.key".format(certPath), "{}Rpi-cert.pem.crt".format(certPath))
+			def setup():
+		# Init AWSIoTMQTTClient
+		#myAWSIoTMQTTClient = None
+		#myAWSIoTMQTTClient = AWSIoTMQTTClient(clientId)
+				myAWSIoTMQTTClient.configureEndpoint(host, 8883)
+				myAWSIoTMQTTClient.configureCredentials("{}RootCA1.pem".format(certPath), "{}Rpi-private.pem.key".format(certPath), "{}Rpi-cert.pem.crt".format(certPath))
 
-	# AWSIoTMQTTClient connection configuration
-	myAWSIoTMQTTClient.configureAutoReconnectBackoffTime(1, 32, 20)
-	myAWSIoTMQTTClient.configureOfflinePublishQueueing(-1)  # Infinite offline Publish queueing
-	myAWSIoTMQTTClient.configureDrainingFrequency(2)  # Draining: 2 Hz
-	myAWSIoTMQTTClient.configureConnectDisconnectTimeout(10)  # 10 sec
-	myAWSIoTMQTTClient.configureMQTTOperationTimeout(5)  # 5 sec
+		# AWSIoTMQTTClient connection configuration
+				myAWSIoTMQTTClient.configureAutoReconnectBackoffTime(1, 32, 20)
+				myAWSIoTMQTTClient.configureOfflinePublishQueueing(-1)  # Infinite offline Publish queueing
+				myAWSIoTMQTTClient.configureDrainingFrequency(2)  # Draining: 2 Hz
+				myAWSIoTMQTTClient.configureConnectDisconnectTimeout(10)  # 10 sec
+				myAWSIoTMQTTClient.configureMQTTOperationTimeout(5)  # 5 sec
 
-	set_serve = True
-setup()
-myAWSIoTMQTTClient.connect()
-def push(avg, avg2, Tavg):
+			set_serve = True
+			setup()
+			myAWSIoTMQTTClient.connect()
+			def push(avg, avg2, Tavg):
 	#host = "a39nu1xs62gahx-ats.iot.us-east-1.amazonaws.com"
 	#certPath = "/home/pi/AppFolder/cert/"
 	#clientId = "pizerow"
@@ -60,24 +77,26 @@ def push(avg, avg2, Tavg):
 	#myAWSIoTMQTTClient.connect()
 
 #	messageJson = json.dumps({"HRvalue": hr, "HTvalid": hr_valid, "SpO2value":spo2,"SpO2valid":spo2_valid})
-	id='1876'
+				id='1234'
 	#temp='98'
 
-	messageJson = json.dumps({"ID": id,"HRvalue": avg,"SpO2value":avg2,"Temperature":Tavg})
-	myAWSIoTMQTTClient.publish(topic, messageJson, 1)
-	print('Published topic %s: %s\n' % (topic, messageJson))
+				messageJson = json.dumps({"ID": id,"HRvalue": avg,"SpO2value":avg2,"Temperature":Tavg})
+				myAWSIoTMQTTClient.publish(topic, messageJson, 1)
+				print('Published topic %s: %s\n' % (topic, messageJson))
 	#print("hello")
-	time.sleep(3)
+				time.sleep(3)
 #myAWSIoTMQTTClient.disconnect()
 
-for n in range(90):
-	from testHR import *
-	from mlxread import *
-	avg, avg2 = Max_read(10)
-	Tavg = temp_read(10)
-	push(avg, avg2, Tavg)
+			for n in range(90):
+				from testHR import *
+				from mlxread import *
+				avg, avg2 = Max_read(10)
+				Tavg = temp_read(10)
+				push(avg, avg2, Tavg)
 #from testHR import *
 #avg, avg2 = Max_read(10)
 #push(avg, avg2, 98)
-myAWSIoTMQTTClient.disconnect()
-
+			myAWSIoTMQTTClient.disconnect()
+	else:
+		check = False
+		break

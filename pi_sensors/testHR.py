@@ -158,24 +158,30 @@ for n in range(2):
     		avg = 0
     		avg2 = 0
     		if (len(hr_list) > 0):
+			#per = 10
         		hr_list.sort()
         		n = len(hr_list)
-        		k = int(round(n))
+        		#k = int(round(n*(float(per)/100)/2))
 #	print ("im david")
+			#hr_list = hr_list[(per/2)*len(hr_list):-(per/2)*len(hr_list)]
+			#hr_list = hr_list[k+1:n-k]
         		hr = hr_list
         #per=int(input('Enter your percentage: '))
-        #hr = hr[(per/2)*len(hr):-(per/2)*len(hr)]
+        		#hr_list = hr_list[len(hr):-len(hr)]
         		summer = 0
         		for i in hr:
             			summer = summer + i
             			l = len(hr)
 
             			avg = summer/l
+				avg = round(avg, 1)
     		if (len(spo2_list) > 0):
+			#per = 10
         		spo2_list.sort()
         		n2 = len(spo2_list)
-        		k2 = int(round(n2))
-        #spo2 = spo2[(per/2)*len(spo2):-(per/2)*len(spo2)]
+        		#k2 = int(round(n2*(float(per)/100)/2))
+        		#spo2_list = spo2_list[(per/2)*len(spo2_list):-(per/2)*len(spo2_list)]
+			#spo2_list = spo2_list[k2+1:n2-k2]
         		spo2 = spo2_list
         		summer2 = 0
         		for x in spo2:
@@ -183,6 +189,7 @@ for n in range(2):
             			l2 = len(spo2)
 
             			avg2 = summer2/l2
+				avg2 = round(avg2, 1)
     
     #		print("hr list: ", hr)
     #		print("spo2 list: ",spo2)
@@ -207,4 +214,4 @@ for n in range(2):
     		return avg, avg2
     # requests.post(url, dic)
     
-#	Max_read(10)
+	Max_read(20)
