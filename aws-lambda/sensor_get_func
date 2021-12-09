@@ -1,3 +1,6 @@
+#The purpose of this code is for the nurse to be able to obtain vitals information 
+#when an API call is made.
+
 #import of modules
 import json
 import boto3
