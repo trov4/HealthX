@@ -15,11 +15,11 @@ def lambda_handler(event, context):
         response = table.query(
         KeyConditionExpression=Key('ID').eq(event['rawQueryString']))
         body=(response['Items'][-1])
-        ts=body['ts']
-        time = ((datetime.datetime.fromtimestamp(ts/1000))) #need to fix time
-        time = time.strftime("%m/%d/%Y, %H:%M:%S")
         
         #formatting to fit the structure of front end web app
+        ts=body['ts']
+        time = ((datetime.datetime.fromtimestamp(ts/1000)))
+        time = time.strftime("%m/%d/%Y, %H:%M:%S")
         time = (((time.split(',')[1])))
         h =int( time.split(":")[0]) - 5
         t = str(h)
