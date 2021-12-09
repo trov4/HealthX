@@ -1,0 +1,31 @@
+#import of modules
+import json
+import boto3
+from boto3.dynamodb.conditions import Key
+import datetime
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('HX_TABLE') #name of DynamoDB table
+
+def lambda_handler(event, context):
+        print("Start Request for Get Person")
+        
+        #expression to obtain vitals information for requested ID
+        response = table.query(KeyConditionExpression=Key('ID').eq(event['rawQueryString']))
+        body=(response['Items'][-1]) #output
+        
+        #formatting to fit the structure of front end web app
+        ts=body['ts']
+        time = ((datetime.datetime.fromtimestamp(ts/1000)))
+        time = time.strftime("%m/%d/%Y, %H:%M:%S")
+        time = (((time.split(',')[1])))
+        h =int( time.split(":")[0]) - 4
+        t = str(h)
+        for temp in time.split(':')[1:]:
+                t = t+':' + temp
+        time=t
+        data={}
+        user_health={}
+        data['Time']=time
+        user_health["items"]=({**body,**data})
+        return(user_health)
