@@ -1,5 +1,5 @@
 #The purpose of this code is for the nurse to be able to obtain location information 
-#when and API call is made.
+#when an API call is made.
 
 #import modules
 import json
@@ -7,8 +7,8 @@ import boto3
 from boto3.dynamodb.conditions import Key
 import datetime
 
-dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('HX_LOC')
+dynamodb = boto3.resource('dynamodb') 
+table = dynamodb.Table('HX_LOC')  #name of DynamoDB table
 
 def lambda_handler(event, context):
         print("Start Request for Get Location")
@@ -19,7 +19,7 @@ def lambda_handler(event, context):
         time = ((datetime.datetime.fromtimestamp(ts/1000))) #need to fix time
         time = time.strftime("%m/%d/%Y, %H:%M:%S")
         
-        #formatting for time 
+        #formatting to fit the structure of front end web app
         time = (((time.split(',')[1])))
         h =int( time.split(":")[0]) - 5
         t = str(h)
