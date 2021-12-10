@@ -1,3 +1,9 @@
 [submodule "Gen2-UHF-RFID-Reader"]
 	path = Gen2-UHF-RFID-Reader
 	url = https://github.com/trov4/Gen2-UHF-RFID-Reader.git
+[submodule "3dmodel"]
+	path = 3dmodel
+	url = https://github.com/jpark16/3dmodel.git
+[submodule "healthx"]
+	path = healthx
+	url = https://github.com/jpark16/healthx.git
