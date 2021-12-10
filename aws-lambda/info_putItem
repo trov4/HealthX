@@ -1,5 +1,5 @@
 #The purpose of this code is to insert patient information 
-#onto the DynamoDB table. 
+#onto the DynamoDB table from the front end web application. 
 
 #modules
 import json
